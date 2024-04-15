@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
 import { SearchMusicComponent } from './search-music.component';
 import { SpotifyService } from '../services/spotify-service/spotify.service';
 import { Observable, of, throwError } from 'rxjs';
@@ -34,7 +34,7 @@ describe('SearchMusicComponent', () => {
   let fixture: ComponentFixture<SearchMusicComponent>;
   let spotifyService: SpotifyService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ MatInputModule, MatFormFieldModule, MatIconModule,
         FormsModule, BrowserAnimationsModule],
