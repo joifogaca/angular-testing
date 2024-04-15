@@ -7,7 +7,7 @@ import { TrackItemComponent } from '../track-item/track-item.component';
 import { MockComponent } from 'ng-mocks';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
