@@ -7,8 +7,8 @@ import { SpotifyService } from '../services/spotify-service/spotify.service';
   styleUrls: ['./search-music.component.css']
 })
 export class SearchMusicComponent implements OnInit {
-  value = 'Pesquise uma música';
-  
+  value = '';
+
   errorMessage = '';
 
   tracks;
@@ -18,10 +18,10 @@ export class SearchMusicComponent implements OnInit {
   ngOnInit() {
   }
 
-  clickAction() {    
+  clickAction() {
     this.spotifyService.searchMusic(this.value).subscribe(
       (response) => {
-        this.tracks = response.body.tracks.items;        
+        this.tracks = response.body.tracks.items;
       },
 
       errorResponse => {
