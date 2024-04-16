@@ -72,7 +72,7 @@ describe('SearchMusicComponent', () => {
     };
 
     spyOn(spotifyService, 'searchMusic').and.returnValue(of(new HttpResponse({body: mockResponse})));
-    
+
     const button = fixture.nativeElement.querySelector('.btn');
     component.value = 'Gorillaz';
 
