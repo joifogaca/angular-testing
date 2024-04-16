@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "button-click-test:build"
+            "buildTarget": "button-click-test:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "button-click-test:build:production"
+              "buildTarget": "button-click-test:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "button-click-test:build"
+            "buildTarget": "button-click-test:build"
           }
         },
         "test": {
