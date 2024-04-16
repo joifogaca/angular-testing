@@ -18,10 +18,17 @@ export class SearchMusicComponent implements OnInit {
   ngOnInit() {
   }
 
+  clear(){
+    this.value = '';
+    this.errorMessage = '';
+    this.tracks = [];
+  }
   clickAction() {
+
     this.spotifyService.searchMusic(this.value).subscribe(
       (response) => {
         this.tracks = response.body.tracks.items;
+        this.errorMessage = '';
       },
 
       errorResponse => {
