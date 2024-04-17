@@ -1,17 +1,16 @@
-import { ComponentFixture, TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
-import { SearchMusicComponent } from './search-music.component';
-import { SpotifyService } from '../services/spotify-service/spotify.service';
-import { Observable, of, throwError } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-import { TrackItemComponent } from '../track-item/track-item.component';
-import { MockComponent } from 'ng-mocks';
-import { By } from '@angular/platform-browser';
+import { ComponentFixture, TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, Input } from '@angular/core';
+import { MockComponent } from 'ng-mocks';
+import { Observable, of, throwError } from 'rxjs';
+import { SpotifyService } from '../services/spotify-service/spotify.service';
+import { TrackItemComponent } from '../track-item/track-item.component';
+import { SearchMusicComponent } from './search-music.component';
 
 /**
 // mockando componente sem MockComponent
@@ -35,16 +34,18 @@ describe('SearchMusicComponent', () => {
   let spotifyService: SpotifyService;
 
   beforeEach(waitForAsync(() => {
+
     TestBed.configureTestingModule({
-      imports: [ MatInputModule, MatFormFieldModule, MatIconModule,
+      imports: [MatInputModule, MatFormFieldModule, MatIconModule,
         FormsModule, BrowserAnimationsModule],
-        //MockTrackItemComponent],
-      declarations: [ SearchMusicComponent, MockComponent(TrackItemComponent) ],
+      //MockTrackItemComponent],
+      //declarations: [SearchMusicComponent, MockComponent(TrackItemComponent)],
+      declarations: [SearchMusicComponent, TrackItemComponent],
       providers: [
         { provide: SpotifyService, useClass: MockSpotifyService }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -64,26 +65,27 @@ describe('SearchMusicComponent', () => {
       Deve retornar os nomes das musicas`, () => {
 
     const mockResponse = {
-        tracks: {
-          items: [
-            { name: 'Track Name'}
-          ]
-        }
+      tracks: {
+        items: [
+          { name: 'Track Name' }
+        ]
+      }
     };
 
-    spyOn(spotifyService, 'searchMusic').and.returnValue(of(new HttpResponse({body: mockResponse})));
+    const searchMusic = spyOn(spotifyService, 'searchMusic')
+    .and.returnValue(of( mockResponse ));
 
-    const button = fixture.nativeElement.querySelector('.btn');
+    const button = fixture.nativeElement.querySelector('#btn-buscar');
     component.value = 'Gorillaz';
 
     button.click();
     fixture.detectChanges();
 
-    const trackItem = fixture.debugElement.query(By.directive(MockComponent(TrackItemComponent)));
+   // const trackItem = fixture.nativeElement.querySelector('.trackName');
 
     expect(spotifyService.searchMusic).toHaveBeenCalledTimes(1);
     expect(spotifyService.searchMusic).toHaveBeenCalledWith("Gorillaz");
-    expect(trackItem).toBeTruthy();
+    expect(component.tracks).toBe(mockResponse.tracks.items);
   });
 
   it(`Dado a pesquisa
@@ -94,7 +96,7 @@ describe('SearchMusicComponent', () => {
       message: 'Falha ao realizar chamada'
     };
 
-    const button = fixture.nativeElement.querySelector('.btn');
+    const button = fixture.nativeElement.querySelector('#btn-buscar');
 
     spyOn(spotifyService, 'searchMusic').and.returnValue(throwError(errorResponse));
     button.click();

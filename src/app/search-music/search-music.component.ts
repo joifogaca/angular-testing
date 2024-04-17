@@ -27,6 +27,7 @@ export class SearchMusicComponent implements OnInit {
 
     this.spotifyService.searchMusic(this.value).subscribe(
       (response) => {
+        console.log(response);
         this.tracks = response.tracks.items;
         this.errorMessage = '';
       },

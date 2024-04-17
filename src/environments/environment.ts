@@ -2,11 +2,10 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { Token } from "@angular/compiler";
 
 export const environment = {
   production: false,
-  token: 'BQBdFTvC1yaiR_6oTpudhmRibSZO4GoVOgY9v2dTdunJsrphXZ-8xYpLMXUfTfdUFauhka--uhdqXtUzzEB-25p9NCzkrcFQwoY8YKLqdabC4UH6YTGdj3lxHcBzvJtoTC6SiIxsU0UZ8L8Agsl-JRq-SQb841rR4wd3ctjJRHq7LXkobfOu52rxknSTnufrzB9T8TvZ9Z1v_oLh0gQSCKmBkOKLXXw64AR-YHsSvLoowG6TgoyNvTYsNSLZ_x40AftWb2gtqQqhwdGpfkktAiru'
+  token: 'BQCUkEqRlySo4QzuWnC14IVx_pxrZqZ3aMaMTieEGHaKIbXenB43p-EcD8aYF5zwO3FW8oB4_Ftjlb02kxW0AaKb4R-LUafqymBRjs0WUiB6KXkaoEXOjMeaM_ug3Lw1NAfu2x6pzWKGJdld6raLcUbCKb962kvWHfIy_MYdNU--qson1HbLvZtZ0PNObBrLrSxXc9A469SvexqP0EhrzQgHYk0yi_A-qqCpPMX7snnoZzvVjpLTh2WooETHfJgaulx34NkkqrLFv1aMID81U9BU'
 };
 
 /*
