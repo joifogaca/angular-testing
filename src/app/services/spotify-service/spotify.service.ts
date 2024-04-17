@@ -19,6 +19,6 @@ export class SpotifyService {
       .set('Authorization', `Bearer ${this.SPOTIFY_AUTH}`);
 
     return this.http
-      .get(url, { headers, observe: 'response', params });
+      .get(url, { headers, params });
   }
 }

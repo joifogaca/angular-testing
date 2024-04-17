@@ -1,8 +1,8 @@
-import { TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
-import { SpotifyService } from './spotify.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
+import { SpotifyService } from './spotify.service';
 
 const mockResponse = {};
 
@@ -17,12 +17,12 @@ describe('SpotifyService', () => {
       imports: [HttpClientTestingModule],
       declarations: []
     }).compileComponents()
-    .then(() => {
-        injector = getTestBed();
-        httpClient = injector.get(HttpClient);
-        httpMock = injector.get(HttpTestingController);
-        service = injector.get(SpotifyService);
-    });
+      .then(() => {
+
+        httpClient = TestBed.inject(HttpClient);
+        httpMock = TestBed.inject(HttpTestingController);
+        service = TestBed.inject(SpotifyService);
+      });
   }));
 
   it('should create the app', () => {
@@ -37,9 +37,9 @@ describe('SpotifyService', () => {
     let searchMusicResponse;
     const musicSearch = "Gorillaz";
 
-    spyOn(httpClient,'get').and.returnValue(of(mockResponse));
+    spyOn(httpClient, 'get').and.returnValue(of(mockResponse));
 
-    const params = {q: musicSearch, type: 'track'}; 
+    const params = { q: musicSearch, type: 'track' };
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${service.SPOTIFY_AUTH}`);
 
@@ -48,7 +48,11 @@ describe('SpotifyService', () => {
     });
 
     expect(searchMusicResponse).toEqual(mockResponse);
-    expect(httpClient.get).toHaveBeenCalledWith('https://api.spotify.com/v1/search', { headers, observe: 'response', params });
+    expect(httpClient.get).toHaveBeenCalledWith('https://api.spotify.com/v1/search',
+      {
+        headers,
+        params
+      });
   });
 
   // SEGUNDO JEITO DE FAZER
@@ -57,21 +61,21 @@ describe('SpotifyService', () => {
       Então deve retornar as músicas 2`, () => {
 
     const musicSearch = "Gorillaz";
-  
-    service.searchMusic('Gorillaz').subscribe((res) => {      
-      expect(res.body).toEqual(mockResponse);
+
+    service.searchMusic('Gorillaz').subscribe((res) => {
+      expect(res).toEqual(mockResponse);
     });
 
-    const params = { q: musicSearch, type: 'track' }; 
+    const params = { q: musicSearch, type: 'track' };
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${service.SPOTIFY_AUTH}`);
 
     const reqMock = httpMock.expectOne((req) => {
       console.log(req.headers);
-      return req.method === 'GET' && 
-      req.urlWithParams === `https://api.spotify.com/v1/search?q=${params.q}&type=${params.type}`
+      return req.method === 'GET' &&
+        req.urlWithParams === `https://api.spotify.com/v1/search?q=${params.q}&type=${params.type}`
     });
-    
+
     reqMock.flush(mockResponse);
     httpMock.verify();
   });
@@ -81,13 +85,12 @@ describe('SpotifyService', () => {
       Então deve repassar o erro`, () => {
     let searchMusicResponse;
 
-    spyOn(httpClient,'get').and.returnValue(throwError({ status: 400 }));
+    spyOn(httpClient, 'get').and.returnValue(throwError({ status: 400 }));
 
-    service.searchMusic('Gorillaz').subscribe(() => {}, (err) => {
+    service.searchMusic('Gorillaz').subscribe(() => { }, (err) => {
       searchMusicResponse = err
     });
 
     expect(searchMusicResponse).toEqual({ status: 400 });
   });
 });
- 
