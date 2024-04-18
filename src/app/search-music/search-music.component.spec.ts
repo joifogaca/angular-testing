@@ -38,8 +38,6 @@ describe('SearchMusicComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatInputModule, MatFormFieldModule, MatIconModule,
         FormsModule, BrowserAnimationsModule],
-      //MockTrackItemComponent],
-      //declarations: [SearchMusicComponent, MockComponent(TrackItemComponent)],
       declarations: [SearchMusicComponent, TrackItemComponent],
       providers: [
         { provide: SpotifyService, useClass: MockSpotifyService }
@@ -86,6 +84,7 @@ describe('SearchMusicComponent', () => {
     expect(spotifyService.searchMusic).toHaveBeenCalledTimes(1);
     expect(spotifyService.searchMusic).toHaveBeenCalledWith("Gorillaz");
     expect(component.tracks).toBe(mockResponse.tracks.items);
+    expect(component.errorMessage).toBe('');
   });
 
   it(`Dado a pesquisa

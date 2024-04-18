@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 export class TrackItemComponent implements OnInit {
   @Input() trackName;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   onClickTrack() {
-    this.router.navigate(['/teste']);
+
   }
 
 }
